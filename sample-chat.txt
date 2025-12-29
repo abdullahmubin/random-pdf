@@ -1,0 +1,25 @@
+01/01/2024, 10:00 AM - John Doe: Hey, how are you?
+01/01/2024, 10:01 AM - Jane Smith: I'm good, thanks! How about you?
+01/01/2024, 10:02 AM - John Doe: Doing great! Want to meet up later?
+01/01/2024, 10:05 AM - Jane Smith: Sure! What time works for you?
+01/01/2024, 10:06 AM - John Doe: How about 3 PM at the coffee shop downtown?
+01/01/2024, 10:07 AM - Jane Smith: Perfect! See you then 😊
+01/01/2024, 10:08 AM - John Doe: Great! See you soon
+01/01/2024, 10:15 AM - Jane Smith: Should I bring anything?
+01/01/2024, 10:16 AM - John Doe: No, just yourself!
+01/01/2024, 10:17 AM - Jane Smith: Okay, cool
+01/01/2024, 10:30 AM - John Doe: By the way, did you finish that report?
+01/01/2024, 10:31 AM - Jane Smith: Yes! I sent it this morning
+01/01/2024, 10:32 AM - John Doe: Awesome, I'll check it out
+01/01/2024, 10:35 AM - Jane Smith: Let me know if you need any changes
+01/01/2024, 10:36 AM - John Doe: Will do!
+01/01/2024, 11:00 AM - Jane Smith: Also, can you send me the meeting notes from yesterday?
+01/01/2024, 11:02 AM - John Doe: Sure, I'll forward them to you
+01/01/2024, 11:03 AM - Jane Smith: Thanks!
+01/01/2024, 11:05 AM - John Doe: No problem
+01/01/2024, 11:30 AM - Jane Smith: Got them, thanks again
+01/01/2024, 14:45 PM - John Doe: Heading out now, see you in 15 minutes
+01/01/2024, 14:46 PM - Jane Smith: Perfect timing! I'm leaving now too
+01/01/2024, 15:00 PM - John Doe: I'm here at the coffee shop
+01/01/2024, 15:02 PM - Jane Smith: Almost there, stuck in traffic
+01/01/2024, 15:05 PM - John Doe: No worries, take your time

@@ -1,0 +1,75 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dropzone {
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f7fafc;
+}
+
+.dropzone:hover {
+  border-color: #4299e1;
+  background-color: #ebf8ff;
+}
+
+.dropzone.active {
+  border-color: #4299e1;
+  background-color: #ebf8ff;
+  transform: scale(1.02);
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.uploadText {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  color: #2d3748;
+}
+
+.uploadSubtext {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0 0 1rem 0;
+}
+
+.uploadNote {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  margin: 0;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .dropzone {
+    padding: 2rem 1rem;
+  }
+
+  .uploadIcon {
+    font-size: 2rem;
+  }
+
+  .uploadText {
+    font-size: 1rem;
+  }
+}

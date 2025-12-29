@@ -1,0 +1,25 @@
+[01/01/2024, 10:00:00 AM] John Doe: Hey, how are you?
+[01/01/2024, 10:01:15 AM] Jane Smith: I'm good, thanks! How about you?
+[01/01/2024, 10:02:30 AM] John Doe: Doing great! Want to meet up later?
+[01/01/2024, 10:05:45 AM] Jane Smith: Sure! What time works for you?
+[01/01/2024, 10:06:12 AM] John Doe: How about 3 PM at the coffee shop downtown?
+[01/01/2024, 10:07:33 AM] Jane Smith: Perfect! See you then 😊
+[01/01/2024, 10:08:22 AM] John Doe: Great! See you soon
+[01/01/2024, 10:15:00 AM] Jane Smith: Should I bring anything?
+[01/01/2024, 10:16:11 AM] John Doe: No, just yourself!
+[01/01/2024, 10:17:45 AM] Jane Smith: Okay, cool
+[01/01/2024, 10:30:22 AM] John Doe: By the way, did you finish that report?
+[01/01/2024, 10:31:08 AM] Jane Smith: Yes! I sent it this morning
+[01/01/2024, 10:32:14 AM] John Doe: Awesome, I'll check it out
+[01/01/2024, 10:35:55 AM] Jane Smith: Let me know if you need any changes
+[01/01/2024, 10:36:03 AM] John Doe: Will do!
+[01/01/2024, 11:00:00 AM] Jane Smith: Also, can you send me the meeting notes from yesterday?
+[01/01/2024, 11:02:17 AM] John Doe: Sure, I'll forward them to you
+[01/01/2024, 11:03:09 AM] Jane Smith: Thanks!
+[01/01/2024, 11:05:44 AM] John Doe: No problem
+[01/01/2024, 11:30:00 AM] Jane Smith: Got them, thanks again
+[01/01/2024, 14:45:00 PM] John Doe: Heading out now, see you in 15 minutes
+[01/01/2024, 14:46:22 PM] Jane Smith: Perfect timing! I'm leaving now too
+[01/01/2024, 15:00:00 PM] John Doe: I'm here at the coffee shop
+[01/01/2024, 15:02:33 PM] Jane Smith: Almost there, stuck in traffic
+[01/01/2024, 15:05:11 PM] John Doe: No worries, take your time
