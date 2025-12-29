@@ -40,20 +40,36 @@ button:focus { outline: 2px solid rgba(124,58,237,0.12); outline-offset: 2px; }
 }
 .btn:hover{ transform:translateY(-3px); box-shadow:0 14px 40px rgba(12,12,30,0.12) }
 
-/* Animated background blobs */
+/* Animated background blobs (static) */
 .bg-blobs {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index:0;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 .bg-blobs .blob {
-  position: absolute; width:480px; height:480px; background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.45), rgba(6,182,212,0.35)); filter:blur(60px); transform: translate3d(0,0,0); opacity:0.9; animation:blobMove 12s infinite linear;
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.45), rgba(6,182,212,0.35));
+  filter: blur(60px);
+  transform: translate3d(0,0,0);
+  opacity: 0.9;
 }
-.bg-blobs .blob.b2{ width:360px; height:360px; left:60%; top:-6%; background: radial-gradient(circle at 60% 40%, rgba(6,182,212,0.45), rgba(124,58,237,0.28)); animation-duration:18s;}
-.bg-blobs .blob.b3{ width:520px; height:520px; left:-14%; top:50%; background: radial-gradient(circle at 20% 60%, rgba(14,165,233,0.3), rgba(124,58,237,0.25)); animation-duration:22s;}
-
-@keyframes blobMove {
-  0%{ transform: translateY(0) translateX(0) scale(1) }
-  50%{ transform: translateY(-30px) translateX(20px) scale(1.05) }
-  100%{ transform: translateY(0) translateX(0) scale(1) }
+.bg-blobs .blob.b2 {
+  width: 360px;
+  height: 360px;
+  left: 60%;
+  top: -6%;
+  background: radial-gradient(circle at 60% 40%, rgba(6,182,212,0.45), rgba(124,58,237,0.28));
+}
+.bg-blobs .blob.b3 {
+  width: 520px;
+  height: 520px;
+  left: -14%;
+  top: 50%;
+  background: radial-gradient(circle at 20% 60%, rgba(14,165,233,0.3), rgba(124,58,237,0.25));
 }
 
 /* small utilities */
@@ -61,17 +77,13 @@ button:focus { outline: 2px solid rgba(124,58,237,0.12); outline-offset: 2px; }
 
 /* Entrance reveal animation for sections */
 .reveal {
-  --reveal-duration: 900ms;
-  --reveal-easing: cubic-bezier(.16,.84,.29,1);
-  --reveal-start-y: 12px;
-  opacity: 0;
-  transform: translateY(var(--reveal-start-y)) scale(0.998);
-  will-change: opacity, transform;
-  transition: opacity var(--reveal-duration) var(--reveal-easing), transform var(--reveal-duration) var(--reveal-easing);
+  opacity: 1; 
+  transform: none; 
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+
+/* small utility to reduce motion for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; transform: none; opacity: 1 }
 }
 
 /* stronger entrance for hero and feature sections */
