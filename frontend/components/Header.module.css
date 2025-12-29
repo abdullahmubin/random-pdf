@@ -104,3 +104,40 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(2,6,23,0.08);
 }
+
+/* Hamburger - hidden on desktop, visible on small screens */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 6px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.hamburger:focus { outline: none }
+.bar { display: block; width: 20px; height: 2px; background: #0f172a; margin: 4px 0; border-radius:2px }
+
+/* Mobile menu overlay */
+.mobileMenu {
+  display: none;
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 64px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.12);
+  z-index: 200;
+  flex-direction: column;
+  gap: 12px;
+}
+.mobileMenu a { display:block; padding: 8px 10px; border-radius:8px }
+.mobileUser { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:8px }
+.mobileMenu.open { display: flex }
+
+@media (max-width: 768px) {
+  .nav a { display: none }
+  .userMenu { display: none }
+  .hamburger { display: inline-block }
+}
