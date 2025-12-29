@@ -1,9 +1,17 @@
 .container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%);
+  /* background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%); */
 }
 
+/* Make the gradient full-bleed and keep a centered content column */
 .main {
+  width: 100%;
+  padding: 4rem 0 6rem 0;
+  /* background: linear-gradient(90deg, #d946ef 0%, #06b6d4 100%); */
+  /* background: ; */
+}
+
+.content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
@@ -18,46 +26,101 @@
 
 /* Hero Section */
 .hero {
-  text-align: center;
-  padding: 3rem 0;
-  margin-bottom: 3rem;
+  padding: 4.5rem 0 3.5rem 0;
+  margin-bottom: 2.5rem;
 }
 
+.heroInner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.heroText {
+  flex: 1 1 55%;
+  padding-right: 1rem;
+}
+
+.heroImage {
+  flex: 1 1 45%;
+  display:flex; align-items:center; justify-content:center;
+}
+.heroImage img{ width:560px; max-width:100%; height:auto; border-radius:14px; box-shadow:0 28px 80px rgba(2,6,23,0.08); transform:translateY(0); transition:transform 420ms cubic-bezier(.2,.9,.2,1) }
+
+@keyframes floatY {
+  0% { transform: translateY(0) }
+  50% { transform: translateY(-10px) }
+  100% { transform: translateY(0) }
+}
+.heroImage img.is-animated { animation: floatY 6s ease-in-out infinite; }
+
+.ctaGroup { display:flex; gap:0.75rem; margin-top:20px }
+.ctaGroup .btn { padding:0.85rem 1.25rem; border-radius:12px; font-weight:700 }
+
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin: 0 0 1rem 0;
+  font-size: 3.5rem;
+  line-height: 1.03;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.6px;
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: #4a5568;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
+  font-size: 1.125rem;
+  color: #475569;
+  max-width: 680px;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.7;
 }
 
 /* Auth Section */
 .authSection {
-  margin: 3rem 0;
+  margin: 2.5rem 0;
   display: flex;
   justify-content: center;
 }
 
 .authCard {
-  background: white;
+  position: relative;
+  background: rgba(255,255,255,0.92);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(2,6,23,0.18);
   text-align: center;
-  max-width: 400px;
+  max-width: 460px;
   width: 100%;
+  border: 1px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+}
+
+.authCard::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 0;
+  height: 6px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: linear-gradient(90deg,#7c3aed 0%,#06b6d4 100%);
 }
 
 .authCard h2 {
   margin: 0 0 0.5rem 0;
-  color: #2d3748;
+  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.authCard h2 span {
+  background: linear-gradient(90deg,#7c3aed 0%,#06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .authCard p {
@@ -91,12 +154,13 @@
 }
 
 .fileInfo {
-  background: white;
+  background: rgba(255,255,255,0.95);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.08);
   margin-top: 1.5rem;
   text-align: center;
+  border: 1px solid rgba(0,0,0,0.04);
 }
 
 .fileName {
@@ -177,14 +241,14 @@
 .generateButton {
   width: 100%;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.18s, box-shadow 0.18s;
 }
 
 .generateButton:hover:not(:disabled) {
@@ -248,6 +312,87 @@
   color: #718096;
   line-height: 1.5;
   margin: 0;
+}
+
+/* Use Cases / Benefits */
+.useCases {
+  margin: 3.5rem 0;
+}
+
+/* Video feature cards: left text, right video */
+.videoCards {
+  display: grid;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+}
+.featureCard {
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(255,255,255,0.98);
+  padding: 1.25rem;
+  border-radius: 12px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+}
+.featureText {
+  flex: 1 1 45%;
+  padding: 0.5rem 1rem;
+}
+.featureText h3 { margin: 0 0 0.5rem 0; font-size:1.125rem; font-weight:700; color:#0f172a }
+.featureText p { margin:0; color:#4a5568; line-height:1.6 }
+.featureVideo {
+  flex: 1 1 55%;
+  display:flex; align-items:center; justify-content:center;
+}
+.featureVideo video{
+  width:300px;
+  height:300px;
+  object-fit:cover;
+  border-radius:8px;
+  box-shadow:0 8px 20px rgba(2,6,23,0.08);
+}
+
+.useCasesTitle {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+}
+
+.useCaseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.useCase {
+  background: rgba(255,255,255,0.96);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+  text-align: center;
+}
+
+.useCaseIcon {
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.useCase h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.useCase p {
+  margin: 0;
+  color: #4a5568;
+  font-size: 0.95rem;
 }
 
 /* Instructions */
@@ -324,7 +469,21 @@
     grid-template-columns: 1fr;
   }
 
+  .heroInner { flex-direction: column; gap:1rem }
+  .heroImage img { width:100%; height:auto }
+
+  .featureCard { flex-direction: column; }
+  .featureText, .featureVideo { flex-basis: auto; width:100% }
+
+  /* mobile: make video full width and scale height */
+  .featureVideo video { width:100%; height:auto; object-fit:cover }
+
   .instructionSteps {
     grid-template-columns: 1fr;
   }
+}
+
+/* Utility spacing for content wrapper when used in JSX */
+.content > section {
+  margin-bottom: 1.5rem;
 }
