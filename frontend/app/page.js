@@ -164,6 +164,41 @@ export default function Home() {
               <motion.div className={styles.step} variants={item}><div className={styles.stepNumber}>3</div><div className={styles.stepContent}><h3>Download</h3><p>Get your processed PDF immediately — no account required for basic conversions.</p></div></motion.div>
             </div>
           </motion.section>
+
+          <motion.section className={styles.faq} variants={item}>
+            <motion.h2>Frequently Asked Questions</motion.h2>
+            <div className={styles.faqGrid}>
+              <div className={styles.faqItem}>
+                <div className={styles.question}>Why should I convert WhatsApp chats to PDF?</div>
+                <div className={styles.answer}>PDFs provide a fixed, printable, and shareable record with timestamps and sender names preserved — useful for evidence, backups, or printing.</div>
+              </div>
+
+              <div className={styles.faqItem}>
+                <div className={styles.question}>Is my data private?</div>
+                <div className={styles.answer}>Yes — uploads are processed transiently for conversion. We do not keep files longer than necessary. See our privacy page for details.</div>
+              </div>
+
+              <div className={styles.faqItem}>
+                <div className={styles.question}>What file formats do you accept?</div>
+                <div className={styles.answer}>For chats: WhatsApp exported .txt files (optionally zipped with media). We also accept images (jpg/png/webp) and PDFs for merging.</div>
+              </div>
+
+              <div className={styles.faqItem}>
+                <div className={styles.question}>Will timestamps and names be preserved?</div>
+                <div className={styles.answer}>Yes — our parser preserves timestamps, sender names, and media placeholders so the generated PDF is clear and court-friendly.</div>
+              </div>
+
+              <div className={styles.faqItem}>
+                <div className={styles.question}>How do I convert images into a single PDF?</div>
+                <div className={styles.answer}>Choose Images → PDF, upload your images in the order you want them to appear, and download a single merged PDF. We support common image formats like JPG, PNG and WebP.</div>
+              </div>
+
+              <div className={styles.faqItem}>
+                <div className={styles.question}>How does PDF merging work? Can I reorder pages?</div>
+                <div className={styles.answer}>Use Merge PDFs to upload multiple PDFs. You can arrange the file order before merging so the output PDF follows the sequence you need.</div>
+              </div>
+            </div>
+          </motion.section>
         </div>
       </main>
     </motion.div>
