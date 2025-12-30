@@ -7,6 +7,16 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import FeatureVideo from '../components/FeatureVideo'
 import { motion } from 'framer-motion'
+import {
+  ChatBubbleLeftRightIcon,
+  PhotoIcon,
+  DocumentDuplicateIcon,
+  HeartIcon,
+  ScaleIcon,
+  FolderIcon,
+  CameraIcon,
+  LinkIcon
+} from '@heroicons/react/24/outline'
 
 const container = {
   hidden: { opacity: 0 },
@@ -46,7 +56,7 @@ export default function Home() {
             <motion.h2 className={styles.featuresTitle} variants={item}>Our Services</motion.h2>
             <div className={styles.featureGrid}>
               <motion.div className={styles.feature} variants={item}>
-                <div className={styles.featureIcon}>💬</div>
+                <div className={styles.featureIcon}><ChatBubbleLeftRightIcon aria-hidden="true" /></div>
                 <h3>WhatsApp Chat to PDF</h3>
                 <p>Upload your exported .txt chat and get a clean, court-ready PDF with timestamps and participants.</p>
                 <div style={{marginTop:12,display:'flex',gap:12,justifyContent:'center'}}>
@@ -55,7 +65,7 @@ export default function Home() {
                 </div>
               </motion.div>
               <motion.div className={styles.feature} variants={item}>
-                <div className={styles.featureIcon}>🖼️</div>
+                <div className={styles.featureIcon}><PhotoIcon aria-hidden="true" /></div>
                 <h3>Images to PDF</h3>
                 <p>Combine multiple images into a single PDF. Perfect for receipts, photos, or evidence bundles.</p>
                 <div style={{marginTop:12,display:'flex',gap:12,justifyContent:'center'}}>
@@ -64,7 +74,7 @@ export default function Home() {
                 </div>
               </motion.div>
               <motion.div className={styles.feature} variants={item}>
-                <div className={styles.featureIcon}>📚</div>
+                <div className={styles.featureIcon}><DocumentDuplicateIcon aria-hidden="true" /></div>
                 <h3>Merge PDFs</h3>
                 <p>Upload multiple PDFs and merge them into one ordered file — quick and private.</p>
                 <div style={{marginTop:12,display:'flex',gap:12,justifyContent:'center'}}>
@@ -80,7 +90,7 @@ export default function Home() {
               <div className={styles.videoCards}>
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>💖</div>
+                    <div className={styles.useCaseIcon}><HeartIcon aria-hidden="true" /></div>
                     <h4>Preserve Memories</h4>
                     <p>Save important conversations with loved ones in a neat, printable format — easy to share and keep for posterity.</p>
                   </div>
@@ -91,7 +101,7 @@ export default function Home() {
 
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>⚖️</div>
+                    <div className={styles.useCaseIcon}><ScaleIcon aria-hidden="true" /></div>
                     <h4>Reliable Evidence</h4>
                     <p>Export chats with timestamps and sender names for clear, court-friendly documentation and record keeping.</p>
                   </div>
@@ -102,7 +112,7 @@ export default function Home() {
 
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>🗂️</div>
+                    <div className={styles.useCaseIcon}><FolderIcon aria-hidden="true" /></div>
                     <h4>Organize & Backup</h4>
                     <p>Keep an offline, searchable archive of conversations and attachments for business, receipts, or personal backups.</p>
                   </div>
@@ -113,7 +123,7 @@ export default function Home() {
 
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>🖼️</div>
+                    <div className={styles.useCaseIcon}><PhotoIcon aria-hidden="true" /></div>
                     <h4>Photo Albums & Receipts</h4>
                     <p>Convert image galleries or multiple receipts into a single PDF for easy sharing, printing, or filing.</p>
                   </div>
@@ -124,7 +134,7 @@ export default function Home() {
 
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>📷</div>
+                    <div className={styles.useCaseIcon}><CameraIcon aria-hidden="true" /></div>
                     <h4>Scan & Archive Documents</h4>
                     <p>Turn photos of documents into a neat PDF — ideal for invoices, IDs, or paperwork you need to keep.</p>
                   </div>
@@ -135,7 +145,7 @@ export default function Home() {
 
                 <motion.div className={styles.featureCard} variants={item}>
                   <div className={styles.featureText}>
-                    <div className={styles.useCaseIcon}>🔗</div>
+                    <div className={styles.useCaseIcon}><LinkIcon aria-hidden="true" /></div>
                     <h4>Merge & Consolidate</h4>
                     <p>Combine multiple PDFs (reports, contracts, statements) into one ordered file for submissions or record-keeping.</p>
                   </div>
