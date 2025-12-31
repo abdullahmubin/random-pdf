@@ -95,4 +95,44 @@ button:focus { outline: 2px solid rgba(124,58,237,0.12); outline-offset: 2px; }
   .reveal, .reveal.is-visible { transition: none; transform: none; opacity: 1 }
 }
 
+/* Layout spacing: consistent section padding and separation */
+section {
+  padding: 3.5rem 1rem;
+  margin-bottom: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  section { padding: 5.5rem 2rem; margin-bottom: 3.5rem; }
+}
+
+@media (min-width: 1280px) {
+  section { padding: 6.5rem 0; }
+}
+
+/* Hero specific styles (used on homepage) */
+.hero {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+.hero .heroInner {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.hero .heroText { flex: 1 1 48%; }
+.hero .heroImage { flex: 1 1 48%; display:flex; align-items:center; justify-content:center }
+.hero .heroImage img { width: 100%; max-width: 640px; height: auto; border-radius: 14px; box-shadow: 0 20px 50px rgba(12,12,30,0.08); }
+
+/* Reduce spacing for very small screens */
+@media (max-width: 640px) {
+  .hero .heroInner { flex-direction: column-reverse; gap: 1.25rem; }
+  .hero .heroImage img { max-width: 90%; }
+}
+
+
 

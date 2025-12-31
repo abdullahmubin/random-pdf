@@ -240,26 +240,35 @@
 
 .generateButton {
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 0.95rem 1.5rem;
   background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1.125rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.12s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 28px rgba(124,58,237,0.12);
 }
 
 .generateButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(124,58,237,0.18);
 }
 
 .generateButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.btnIcon { width:20px; height:20px; color: white; display:inline-block }
+
+.fileIcon { width:18px; height:18px; color: var(--accent-1); vertical-align:middle; margin-right:8px }
 
 /* Features Section */
 .features {
@@ -448,6 +457,30 @@
 
 .question { font-weight: 700; color: #0f172a; margin-bottom: 0.5rem }
 .answer { color: #475569; font-size: 0.95rem; line-height: 1.5 }
+
+/* WhatsApp page specific: Why section */
+.whySection {
+  margin: 3rem 0 2rem 0;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.whyItem {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+  text-align: left;
+}
+
+.whyIcon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:linear-gradient(180deg, rgba(248,240,255,0.9), rgba(240,249,255,0.9)); margin-bottom:0.75rem }
+.whyIcon svg { width:22px; height:22px; color:var(--accent-1); }
 
 .instructions h2 {
   text-align: center;
