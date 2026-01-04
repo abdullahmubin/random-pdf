@@ -14,11 +14,19 @@ export default function WhatsAppPage(){
   const [previewImages,setPreviewImages] = useState([]);
   const [previewParticipants,setPreviewParticipants] = useState([]);
   const [previewBlurred,setPreviewBlurred] = useState(false);
+  const [isGenerating,setIsGenerating] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [totalSize, setTotalSize] = useState(0);
 
   const handleFileSelect = (selected)=>{
     const arr = Array.isArray(selected) ? selected : [selected];
     setFiles(arr);
     setError('');
+    // compute total size
+    try{
+      const size = (arr || []).reduce((s,f)=> s + (f.size||0), 0);
+      setTotalSize(size);
+    }catch(e){ setTotalSize(0); }
   }
 
   // fetch a small preview for the selected files
@@ -41,15 +49,26 @@ export default function WhatsAppPage(){
 
   const handleGenerate = async ()=>{
     if (!files || files.length===0) return setError('No files');
-    setIsProcessing(true); setError('');
+    setIsGenerating(true); setError(''); setUploadProgress(0);
     try{
-      const blob = await apiClient.generatePDF(files);
+      const blob = await apiClient.generatePDF(files, (percent)=>{
+        setUploadProgress(percent);
+      });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href=url; a.download='chat_converted.pdf'; document.body.appendChild(a); a.click(); URL.revokeObjectURL(url); document.body.removeChild(a);
       setFiles(null);
       alert('Done');
     }catch(e){ setError(e.message||e.toString()); }
-    setIsProcessing(false);
+    setIsGenerating(false);
+  }
+
+  const formatBytes = (bytes) => {
+    if (!bytes) return '0 B';
+    const thresh = 1024;
+    if (Math.abs(bytes) < thresh) return bytes + ' B';
+    const units = ['KB','MB','GB','TB'];
+    let u = -1; do { bytes /= thresh; ++u; } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
   }
 
   return (
@@ -130,6 +149,24 @@ export default function WhatsAppPage(){
           </div>
         </section>
       </div></main>
+      {isGenerating && (
+        <div className={styles.generateOverlay} aria-live="polite">
+          <div className={styles.generateCard}>
+            <div className={styles.generateSpinner} role="img" aria-hidden="true" />
+            <h3>Converting to PDF…</h3>
+            <p>Your chat is being converted. This may take a few seconds.</p>
+            <div style={{marginTop:12}}>
+              <p className={styles.fileSize}><strong>Size:</strong> {formatBytes(totalSize)}</p>
+              <div className={styles.progressBarWrapper} aria-hidden="false" style={{marginTop:8}}>
+                <div className={styles.progressBar} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={uploadProgress}>
+                  <div className={styles.progressFill} style={{width: `${uploadProgress}%`}} />
+                </div>
+                <div style={{marginTop:6, fontSize:12, color:'#475569'}}>{uploadProgress}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -112,7 +112,8 @@ class APIClient {
     });
   }
 
-  async generatePDF(files) {
+  // generatePDF with optional progress callback (onProgress receives percent 0-100)
+  async generatePDF(files, onProgress) {
     const formData = new FormData();
     if (files instanceof File || (typeof File !== 'undefined' && files instanceof File)) {
       formData.append('file', files);
@@ -122,9 +123,42 @@ class APIClient {
       throw new Error('No files provided');
     }
 
-    return this.request('/api/generate-pdf', {
-      method: 'POST',
-      body: formData,
+    // Use XMLHttpRequest to support upload progress events
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const url = `${API_URL}/api/generate-pdf`;
+      xhr.open('POST', url, true);
+      const token = this.getToken();
+      if (token) {
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+      }
+      xhr.responseType = 'blob';
+
+      xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable && typeof onProgress === 'function') {
+          const percent = Math.round((e.loaded / e.total) * 100);
+          try { onProgress(percent); } catch (err) { /* ignore callback errors */ }
+        }
+      };
+
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          // Attempt to parse JSON error from responseText
+          let msg = `HTTP ${xhr.status}`;
+          try {
+            const txt = xhr.response && typeof xhr.response === 'string' ? xhr.response : xhr.responseText;
+            const json = txt ? JSON.parse(txt) : null;
+            if (json && json.error) msg = json.error;
+          } catch (e) {}
+          reject(new Error(msg));
+        }
+      };
+
+      xhr.onerror = function() { reject(new Error('Network error')); };
+      xhr.ontimeout = function() { reject(new Error('Request timed out')); };
+      xhr.send(formData);
     });
   }
 
