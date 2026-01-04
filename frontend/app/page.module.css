@@ -547,6 +547,28 @@
   100% { background-position: -200% 0, 0 0 }
 }
 
+/* Toast / notification */
+.toastContainer {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 1400;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  color: #0f172a;
+  padding: 12px 14px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  min-width: 220px;
+}
+.toastSuccess { border-left: 4px solid #7c3aed }
+.toastMessage { flex: 1; font-weight: 600; font-size: 0.95rem }
+.toastClose { background: transparent; border: none; color: #718096; font-size: 16px; cursor: pointer }
+
 
 
 .step {

@@ -19,6 +19,8 @@ export default function WhatsAppPage(){
   const [totalSize, setTotalSize] = useState(0);
   const [uploadPhase, setUploadPhase] = useState('idle'); // 'idle' | 'uploading' | 'processing'
   const processingTimerRef = useRef(null);
+  const [toast, setToast] = useState(null);
+  const toastTimerRef = useRef(null);
 
   const handleFileSelect = (selected)=>{
     const arr = Array.isArray(selected) ? selected : [selected];
@@ -82,7 +84,10 @@ export default function WhatsAppPage(){
       setUploadPhase('done');
       const a = document.createElement('a'); a.href=url; a.download='chat_converted.pdf'; document.body.appendChild(a); a.click(); URL.revokeObjectURL(url); document.body.removeChild(a);
       setFiles(null);
-      alert('Done');
+      // show toast notification instead of alert
+      if (toastTimerRef.current) { clearTimeout(toastTimerRef.current); toastTimerRef.current = null; }
+      setToast({ type: 'success', message: 'Download started' });
+      toastTimerRef.current = setTimeout(()=>{ setToast(null); toastTimerRef.current = null; }, 4500);
     }catch(e){ setError(e.message||e.toString()); }
     setIsGenerating(false);
   }
@@ -90,6 +95,7 @@ export default function WhatsAppPage(){
   useEffect(()=>{
     return ()=>{
       if (processingTimerRef.current) { clearInterval(processingTimerRef.current); processingTimerRef.current = null; }
+      if (toastTimerRef.current) { clearTimeout(toastTimerRef.current); toastTimerRef.current = null; }
     }
   }, []);
 
@@ -202,6 +208,14 @@ export default function WhatsAppPage(){
               </div>
         </div>
       )}
+          {toast && (
+            <div className={styles.toastContainer} role="status" aria-live="polite">
+              <div className={`${styles.toast} ${styles.toastSuccess}`}>
+                <div className={styles.toastMessage}>{toast.message}</div>
+                <button className={styles.toastClose} onClick={() => { if (toastTimerRef.current) { clearTimeout(toastTimerRef.current); toastTimerRef.current = null; } setToast(null); }} aria-label="Dismiss">×</button>
+              </div>
+            </div>
+          )}
     </div>
   )
 }
