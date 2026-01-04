@@ -168,6 +168,12 @@ class APIClient {
   }
 
   async imagesToPDF(files) {
+    // backward-compatible wrapper: call XHR version without progress
+    return this.imagesToPDFWithProgress(files);
+  }
+
+  // XHR-based imagesToPDF with optional progress callback
+  async imagesToPDFWithProgress(files, onProgress) {
     const formData = new FormData();
     if (files instanceof File || (typeof File !== 'undefined' && files instanceof File)) {
       formData.append('file', files);
@@ -177,13 +183,52 @@ class APIClient {
       throw new Error('No files provided');
     }
 
-    return this.request('/api/images-to-pdf', {
-      method: 'POST',
-      body: formData,
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const url = `${API_URL}/api/images-to-pdf`;
+      xhr.open('POST', url, true);
+      const token = this.getToken();
+      if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+      xhr.responseType = 'blob';
+
+      xhr.upload.onprogress = function(e) {
+        if (typeof onProgress === 'function') {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            try { onProgress(percent, e.loaded, e.total); } catch (err) { }
+          } else {
+            try { onProgress(0, e.loaded || 0, e.total || 0); } catch (err) { }
+          }
+        }
+      };
+
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          let msg = `HTTP ${xhr.status}`;
+          try {
+            const txt = xhr.response && typeof xhr.response === 'string' ? xhr.response : xhr.responseText;
+            const json = txt ? JSON.parse(txt) : null;
+            if (json && json.error) msg = json.error;
+          } catch (e) {}
+          reject(new Error(msg));
+        }
+      };
+
+      xhr.onerror = function() { reject(new Error('Network error')); };
+      xhr.ontimeout = function() { reject(new Error('Request timed out')); };
+      xhr.send(formData);
     });
   }
 
   async mergePDF(files) {
+    // backward-compatible wrapper
+    return this.mergePDFWithProgress(files);
+  }
+
+  // XHR-based mergePDF with optional progress callback
+  async mergePDFWithProgress(files, onProgress) {
     const formData = new FormData();
     if (files instanceof File || (typeof File !== 'undefined' && files instanceof File)) {
       formData.append('file', files);
@@ -193,9 +238,42 @@ class APIClient {
       throw new Error('No files provided');
     }
 
-    return this.request('/api/merge-pdf', {
-      method: 'POST',
-      body: formData,
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const url = `${API_URL}/api/merge-pdf`;
+      xhr.open('POST', url, true);
+      const token = this.getToken();
+      if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+      xhr.responseType = 'blob';
+
+      xhr.upload.onprogress = function(e) {
+        if (typeof onProgress === 'function') {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            try { onProgress(percent, e.loaded, e.total); } catch (err) { }
+          } else {
+            try { onProgress(0, e.loaded || 0, e.total || 0); } catch (err) { }
+          }
+        }
+      };
+
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          let msg = `HTTP ${xhr.status}`;
+          try {
+            const txt = xhr.response && typeof xhr.response === 'string' ? xhr.response : xhr.responseText;
+            const json = txt ? JSON.parse(txt) : null;
+            if (json && json.error) msg = json.error;
+          } catch (e) {}
+          reject(new Error(msg));
+        }
+      };
+
+      xhr.onerror = function() { reject(new Error('Network error')); };
+      xhr.ontimeout = function() { reject(new Error('Request timed out')); };
+      xhr.send(formData);
     });
   }
 
