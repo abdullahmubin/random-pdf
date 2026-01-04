@@ -135,9 +135,14 @@ class APIClient {
       xhr.responseType = 'blob';
 
       xhr.upload.onprogress = function(e) {
-        if (e.lengthComputable && typeof onProgress === 'function') {
-          const percent = Math.round((e.loaded / e.total) * 100);
-          try { onProgress(percent); } catch (err) { /* ignore callback errors */ }
+        if (typeof onProgress === 'function') {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            try { onProgress(percent, e.loaded, e.total); } catch (err) { /* ignore callback errors */ }
+          } else {
+            // length not computable — provide a best-effort signal
+            try { onProgress(0, e.loaded || 0, e.total || 0); } catch (err) { }
+          }
         }
       };
 

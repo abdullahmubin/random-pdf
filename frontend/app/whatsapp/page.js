@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import FileUpload from '@/components/FileUpload';
 import ChatPreview from '@/components/ChatPreview';
 import { apiClient } from '@/lib/api';
@@ -17,6 +17,8 @@ export default function WhatsAppPage(){
   const [isGenerating,setIsGenerating] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
+  const [uploadPhase, setUploadPhase] = useState('idle'); // 'idle' | 'uploading' | 'processing'
+  const processingTimerRef = useRef(null);
 
   const handleFileSelect = (selected)=>{
     const arr = Array.isArray(selected) ? selected : [selected];
@@ -49,18 +51,47 @@ export default function WhatsAppPage(){
 
   const handleGenerate = async ()=>{
     if (!files || files.length===0) return setError('No files');
-    setIsGenerating(true); setError(''); setUploadProgress(0);
+    setIsGenerating(true); setError(''); setUploadProgress(0); setUploadPhase('uploading');
     try{
-      const blob = await apiClient.generatePDF(files, (percent)=>{
-        setUploadProgress(percent);
+      const blob = await apiClient.generatePDF(files, (percent, loaded, total)=>{
+        // update determinate progress during upload
+        const pct = typeof percent === 'number' ? percent : 0;
+        if (pct < 100) {
+          setUploadProgress(pct);
+        } else {
+          // upload finished — switch to processing phase and start simulated progress if not already started
+          setUploadPhase('processing');
+          // ensure processing always begins at 1%
+          setUploadProgress(prev => (prev > 1 && prev < 99) ? prev : 1);
+          if (!processingTimerRef.current) {
+            // start a 5s interval that increments progress by 1-2% up to 99%
+            processingTimerRef.current = setInterval(()=>{
+              setUploadProgress(prev => {
+                if (prev >= 99) return prev;
+                const inc = Math.random() < 0.5 ? 1 : 2;
+                return Math.min(prev + inc, 99);
+              });
+            }, 5000);
+          }
+        }
       });
       const url = window.URL.createObjectURL(blob);
+      // PDF is ready — stop simulated timer and finish progress
+      if (processingTimerRef.current) { clearInterval(processingTimerRef.current); processingTimerRef.current = null; }
+      setUploadProgress(100);
+      setUploadPhase('done');
       const a = document.createElement('a'); a.href=url; a.download='chat_converted.pdf'; document.body.appendChild(a); a.click(); URL.revokeObjectURL(url); document.body.removeChild(a);
       setFiles(null);
       alert('Done');
     }catch(e){ setError(e.message||e.toString()); }
     setIsGenerating(false);
   }
+
+  useEffect(()=>{
+    return ()=>{
+      if (processingTimerRef.current) { clearInterval(processingTimerRef.current); processingTimerRef.current = null; }
+    }
+  }, []);
 
   const formatBytes = (bytes) => {
     if (!bytes) return '0 B';
@@ -151,20 +182,24 @@ export default function WhatsAppPage(){
       </div></main>
       {isGenerating && (
         <div className={styles.generateOverlay} aria-live="polite">
-          <div className={styles.generateCard}>
-            <div className={styles.generateSpinner} role="img" aria-hidden="true" />
-            <h3>Converting to PDF…</h3>
-            <p>Your chat is being converted. This may take a few seconds.</p>
-            <div style={{marginTop:12}}>
-              <p className={styles.fileSize}><strong>Size:</strong> {formatBytes(totalSize)}</p>
-              <div className={styles.progressBarWrapper} aria-hidden="false" style={{marginTop:8}}>
-                <div className={styles.progressBar} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={uploadProgress}>
-                  <div className={styles.progressFill} style={{width: `${uploadProgress}%`}} />
+              <div className={styles.generateCard}>
+                <div className={styles.generateSpinner} role="img" aria-hidden="true" />
+                <h3>Converting to PDF…</h3>
+                <p>
+                  {uploadPhase === 'uploading' ? 'Uploading your files — please wait.' : 'Your chat is being converted. This may take a few seconds.'}
+                </p>
+                <div style={{marginTop:12}}>
+                  <p className={styles.fileSize}><strong>Size:</strong> {formatBytes(totalSize)}</p>
+                  <div className={styles.progressBarWrapper} aria-hidden="false" style={{marginTop:8}}>
+                    <div className={styles.progressBar} role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={uploadProgress}>
+                      <div className={styles.progressFill} style={{width: `${uploadProgress}%`}} />
+                    </div>
+                    <div style={{marginTop:6, fontSize:12, color:'#475569'}}>
+                      {uploadPhase === 'uploading' ? `${uploadProgress}% uploaded` : `${uploadProgress}% — Converting on server...`}
+                    </div>
+                  </div>
                 </div>
-                <div style={{marginTop:6, fontSize:12, color:'#475569'}}>{uploadProgress}%</div>
               </div>
-            </div>
-          </div>
         </div>
       )}
     </div>
